@@ -1,6 +1,18 @@
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGODB_URL, {
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
+mongoose.Promise = Promise;
+
+let mongoURI = "";
+
+if (process.env.NODE_ENV === "production") {
+  mongoURI = process.env.DB_URL;
+} else {
+  mongoURI = "mongodb://localhost/chidoestech";
+}
+
+mongoose
+  .connect(mongoURI, { useNewUrlParser: true })
+  .then(instance =>
+    console.log(`Connected to db: ${instance.connections[0].name}`)
+  )
+  .catch(error => console.log("Connection failed!", error));

@@ -1,12 +1,12 @@
 // data modelling: it's a way to think about the structure of our data and the relationships between different objects in our application and how we'll store that data and embody those relationships in our database.
 
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 
 const userSchema = mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: true,
     trim: true
@@ -39,18 +39,12 @@ const userSchema = mongoose.Schema({
 
 // hash password with bcrypt
 userSchema.pre("save", async function(next) {
-  if (!this.isModified("password")) {
-    return next();
+  // Hash the password before saving the user model
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 8);
   }
-
-  bcrypt.hash(this.password, 8, (err, hash) => {
-    if (err) {
-      return next(err);
-    }
-
-    this.password = hash;
-    next();
-  });
+  next();
 });
 
 // add token to user model
@@ -63,26 +57,18 @@ userSchema.methods.generateAuthToken = async function() {
   return token;
 };
 
-userSchema.methods.verifyToken = token =>
-  new Promise((resolve, reject) => {
-    jwt.verify(token, process.env.JWT_KEY, (err, payload) => {
-      if (err) return reject(err);
-      resolve(payload);
-    });
-  });
-
 // compare password with bcrypt and we would use this in the signin authe
-userSchema.methods.checkPassword = function(password) {
-  const passwordHash = this.password;
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(password, passwordHash, (err, same) => {
-      if (err) {
-        return reject(err);
-      }
-
-      resolve(same);
-    });
-  });
+userSchema.statics.findByCredentials = async (email, password) => {
+  // Search for a user by email and password.
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error({ error: "Invalid login credentials" });
+  }
+  const isPasswordMatch = await bcrypt.compare(password, user.password);
+  if (!isPasswordMatch) {
+    throw new Error({ error: "Invalid login credentials" });
+  }
+  return user;
 };
 
 const User = mongoose.model("User", userSchema);
