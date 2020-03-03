@@ -22,11 +22,30 @@ const blogSchema = mongoose.Schema(
       required: true,
       trim: true
     },
-    blogBody: {
-      type: String,
-      required: true,
-      trim: true
-    },
+    blogBody: [
+      {
+        subPostSubtitle: {
+          type: String,
+          required: true,
+          trim: true
+        },
+        subPostText: {
+          type: String,
+          required: false,
+          trim: true
+        },
+        subPostImage: {
+          type: String,
+          required: false,
+          trim: true
+        },
+        subPostCode: {
+          type: String,
+          required: false,
+          trim: true
+        }
+      }
+    ],
     dateCreated: {
       type: String,
       required: true
