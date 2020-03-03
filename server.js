@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const userRouter = require("./src/resources/user/user.route");
+const blogRouter = require("./src/resources/blog/blog.route");
 
 // const port = process.env.PORT;
 
@@ -18,6 +19,7 @@ app.use(cors());
 app.use(morgan("dev"));
 
 app.use(userRouter);
+app.use(blogRouter);
 
 app.set("port", process.env.PORT || 8080);
 
