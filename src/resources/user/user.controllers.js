@@ -1,6 +1,33 @@
 const User = require("./user.model");
 
 module.exports = {
+  // logout:
+  // logoutOneDevice will remove the token connected to the signin of the device
+  logout: async (req, res) => {
+    try {
+      req.user.tokens = req.user.tokens.filter(token => {
+        return token.token != req.token;
+      });
+      await req.user.save();
+      res.send();
+    } catch (e) {
+      console.error(e);
+      res.status(400).send(error);
+    }
+  },
+
+  // logoutAllDevice will remove all the tokens
+  logoutAllDevice: async (req, res) => {
+    try {
+      req.user.tokens.splice(0, req.user.tokens.length);
+      await req.user.save();
+      res.send();
+    } catch (e) {
+      console.error(e);
+      res.status(400).send(error);
+    }
+  },
+
   // signup
   // here we are implementing the signup logic using a controller:
   // accepts an email and password

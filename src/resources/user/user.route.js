@@ -22,6 +22,12 @@ router.post("/user/signup", userController.signup);
 // login user = post
 router.post("/user/signin", userController.signin);
 
+// logout
+router.post("/user/logout", auth, userController.logout);
+
+// logoutAll
+router.post("/user/logoutall", auth, userController.logoutAllDevice);
+
 // find one user = get
 router.get("/user", auth, userController.person);
 
