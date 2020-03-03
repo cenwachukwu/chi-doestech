@@ -1,0 +1,58 @@
+{
+  "name": "chidoestech",
+  "version": "1.0.0",
+  "description": "a bloging application",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "dev": "nodemon --exec npm run restart",
+    "format": "prettier \"src/**/*.{js}\" --write",
+    "restart": "rimraf dist && npm run build && npm run start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cenwachukwu/chidoestech.git"
+  },
+  "author": "Chiebuka Nwachukwu",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "prettier": "^1.19.1",
+    "@babel/cli": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^25.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "mock-req-res": "^1.0.2",
+    "nodemon": "^1.18.3",
+    "rimraf": "^2.6.2",
+    "supertest": "^3.3.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.8.6",
+    "bcrypt": "^4.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jest": "^25.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.2",
+    "morgan": "^1.9.1",
+    "validator": "^12.2.0"
+  }
+}
