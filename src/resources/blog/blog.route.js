@@ -4,8 +4,13 @@ const blogController = require("./blog.controllers");
 
 const router = express.Router();
 
+const auth = require("../../utils/auth");
+
 // find multiple blogs = get
 router.get("/article", blogController.allBlogPosts);
+
+// create new blog = post
+router.post("/article", auth, blogController.createBlogPost);
 
 // find one blog by category = get
 router.get("/article/:category", blogController.oneBlogPostByCategory);
@@ -16,13 +21,10 @@ router
   // find one blog = get
   .get(blogController.oneBlogPostById)
 
-  // create new blog = post
-  .post(blogController.createBlogPost)
-
   // update blog= put
-  .put(blogController.updateBlogPost)
+  .put(auth, blogController.updateBlogPost)
 
   // delete blog = delete
-  .delete(blogController.deleteBlogPost);
+  .delete(auth, blogController.deleteBlogPost);
 
 module.exports = router;

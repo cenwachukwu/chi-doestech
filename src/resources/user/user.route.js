@@ -14,6 +14,8 @@ const User = require("./user.model");
 // So this route actually handles `/directory` because it's the root route when a request to /directory is forwarded to our router.
 const router = express.Router();
 
+const auth = require("../../utils/auth");
+
 // create new user (signup) = post
 router.post("/user/signup", userController.signup);
 
@@ -21,15 +23,15 @@ router.post("/user/signup", userController.signup);
 router.post("/user/signin", userController.signin);
 
 // find one user = get
-router.get("/user/:id", userController.person);
+router.get("/user", auth, userController.person);
 
 // find multiple users = get
 router.get("/users", userController.getAllPersons);
 
 // update user = put
-router.put("/user/:id", userController.updatePerson);
+router.put("/user/:id", auth, userController.updatePerson);
 
 // delete user = delete
-router.delete("/user/:id", userController.deletePerson);
+router.delete("/user/:id", auth, userController.deletePerson);
 
 module.exports = router;

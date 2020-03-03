@@ -52,25 +52,23 @@ module.exports = {
       res.status(400).end();
     }
   },
-  // only authenticated user updates blog post
-  updateBlogPost: async (req, res) => {
+  // only authenticated user creates blog post
+  createBlogPost: async (req, res) => {
+    const createdBy = req.user._id;
     try {
-      const doc = await Blog.create({
-        createdBy: req.User._id,
-        _id: req.params.id
-      });
+      const doc = await Blog.create({ ...req.body, createdBy });
       res.status(201).json({ data: doc });
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      console.error(e);
       res.status(400).end();
     }
   },
-  // only authenticated user creates blog post
-  createBlogPost: async (req, res) => {
+  // only authenticated user updates blog post
+  updateBlogPost: async (req, res) => {
     try {
       const updatedDoc = await Blog.findOneAndUpdate(
         {
-          createdBy: req.User._id,
+          createdBy: req.user._id,
           _id: req.params.id
         },
         req.body,
@@ -93,7 +91,7 @@ module.exports = {
   deleteBlogPost: async (req, res) => {
     try {
       await Blog.findOneAndRemove({
-        createdBy: req.User._id,
+        createdBy: req.user._id,
         _id: req.params.id
       });
 

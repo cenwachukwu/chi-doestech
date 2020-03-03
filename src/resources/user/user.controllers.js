@@ -46,7 +46,7 @@ module.exports = {
 
   // get one authenticated user by an authenticated user
   person: async (req, res) => {
-    res.status(200).json({ data: req.user });
+    res.status(200).send({ data: req.user });
   },
 
   // trying out code for getting all the users
