@@ -4,19 +4,25 @@ const blogController = require("./blog.controllers");
 
 const router = express.Router();
 
-// create new blog = post
-router.post("/");
-
-// find one blog = get
-router.get("/:id");
-
 // find multiple blogs = get
-router.get("/");
+router.get("/article", blogController.allBlogPosts);
 
-// update user = put
-router.put("/:id");
+// find one blog by category = get
+router.get("/article/:category", blogController.oneBlogPostByCategory);
 
-// delete user = delete
-router.delete("/:id");
+router
+  .route("/article/:id")
+
+  // find one blog = get
+  .get(blogController.oneBlogPostById)
+
+  // create new blog = post
+  .post(blogController.createBlogPost)
+
+  // update blog= put
+  .put(blogController.updateBlogPost)
+
+  // delete blog = delete
+  .delete(blogController.deleteBlogPost);
 
 module.exports = router;

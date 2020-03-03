@@ -19,7 +19,7 @@ module.exports = {
     }
   },
   // find one blog post
-  oneBlogPost: async (req, res) => {
+  oneBlogPostById: async (req, res) => {
     try {
       const doc = await Blog.findOne({ _id: req.params.id })
         .lean()

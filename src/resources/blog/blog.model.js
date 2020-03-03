@@ -39,11 +39,11 @@ const blogSchema = mongoose.Schema(
           required: false,
           trim: true
         },
-        subPostCode: {
-          type: String,
-          required: false,
-          trim: true
-        }
+        subPostCode: [
+          {
+            code: { type: String, required: false, trim: true }
+          }
+        ]
       }
     ],
     dateCreated: {
