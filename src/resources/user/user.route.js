@@ -11,3 +11,17 @@ const userController = require("./user.controllers");
 // route is a path and an HTTP method
 // So this route actually handles `/directory` because it's the root route when a request to /directory is forwarded to our router.
 const router = express.Router();
+
+// create new user (signup) = post
+
+// login user = post
+
+// find one user = get
+
+// find multiple users = get
+
+// delete user = delete
+
+// update user = put
+
+module.exports = router;
