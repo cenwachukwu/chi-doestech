@@ -3,7 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const userRouter = require("./src/resources/user/user.route");
 
-const port = process.env.PORT;
+// const port = process.env.PORT;
 
 require("./src/config/connection");
 
@@ -19,6 +19,8 @@ app.use(morgan("dev"));
 
 app.use(userRouter);
 
-app.listen(port, () => {
-  console.log(`REST API on http://localhost:${port}/api`);
+app.set("port", process.env.PORT || 8080);
+
+app.listen(app.get("port"), () => {
+  console.log(`✅ PORT: ${app.get("port")} 🌟`);
 });

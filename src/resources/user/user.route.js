@@ -15,10 +15,10 @@ const User = require("./user.model");
 const router = express.Router();
 
 // create new user (signup) = post
-router.post("/signup", userController.signup);
+router.post("/user/signup", userController.signup);
 
 // login user = post
-router.post("/signin", userController.signin);
+router.post("/user/signin", userController.signin);
 
 // find one user = get
 router.get("/user/:id", userController.person);
