@@ -12,11 +12,7 @@ const blogSchema = mongoose.Schema(
       required: true,
       trim: true
     },
-    blogCategory: {
-      type: String,
-      required: true,
-      trim: true
-    },
+    blogCategory: [{ tag: { type: String, required: false, trim: true } }],
     blogPreview: {
       type: String,
       required: true,
@@ -24,32 +20,30 @@ const blogSchema = mongoose.Schema(
     },
     blogBody: [
       {
-        subPostSubtitle: {
+        postIntroduction: {
           type: String,
           required: true,
           trim: true
         },
-        subPostText: {
-          type: String,
-          required: false,
-          trim: true
-        },
-        subPostImage: {
-          type: String,
-          required: false,
-          trim: true
-        },
-        subPostCode: [
+        postTerms: [
           {
-            code: { type: String, required: false, trim: true }
+            term: { type: String, required: false, trim: true },
+            note: { type: String, required: false, trim: true }
+          }
+        ],
+        subPost: [
+          {
+            subPostSubtitle: { type: String, required: true, trim: true },
+            subPostText: { type: String, required: false, trim: true },
+            subPostImage: { type: String, required: false, trim: true },
+            subPostCode: [
+              { code: { type: String, required: false, trim: true } }
+            ]
           }
         ]
       }
     ],
-    dateCreated: {
-      type: String,
-      required: true
-    },
+    dateCreated: { type: String, required: true },
     // this is how you set up relationships in mongo using mongoose
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
