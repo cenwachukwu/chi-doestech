@@ -13,7 +13,7 @@ router.get("/article", blogController.allBlogPosts);
 router.post("/article", auth, blogController.createBlogPost);
 
 // find one blog by category = get
-router.get("/article/:category", blogController.oneBlogPostByCategory);
+router.get("/article/:blogCategory", blogController.oneBlogPostByCategory);
 
 router
   .route("/article/:id")
